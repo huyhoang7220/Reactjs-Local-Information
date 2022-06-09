@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Col, Form, Row, FormGroup, Label, Input, Button } from 'reactstrap';
-import axios from 'axios';
 import '../Province/AddProvince.css';
 import provinceService from '../../services/province/provinceService';
 class Edit extends React.Component {
@@ -59,16 +58,15 @@ class Edit extends React.Component {
     }
 
     onSubmit(e) {
-        debugger;
         e.preventDefault();
-        const obj = {
+        const model = {
             Id: this.props.match.params.id,
             Name: this.state.Name,
             Code: this.state.Code,
             CountryId: this.state.CountryId
 
         };
-        axios.post('https://localhost:5001/api/Province/update-country/', obj)
+        provinceService.postUpdateAsync(model)
             .then(res => console.log(res.data));
         debugger;
         this.props.history.push('/ProvinceList')

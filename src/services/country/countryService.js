@@ -8,7 +8,7 @@ const countryService = {
         return axios.get(`${ApiDomain}/api/Country/get-all-country`)
     },
     deleteAsync: (id) => {
-        return axios.delete(`${ApiDomain}/api/Country/delete-country/${id}`)
+        return apiHeper.delete(`${ApiDomain}/api/Country/delete-country/${id}`)
     },
     postAsync: (model) => {
         return apiHeper.post(`${ApiDomain}/api/Country/post-country`, model)

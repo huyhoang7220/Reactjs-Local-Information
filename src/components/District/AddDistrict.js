@@ -19,27 +19,14 @@ class AddDistrict extends React.Component {
             Id: this.state.Id, Name: this.state.Name,
             Code: this.state.Code, ProvinceId: this.state.ProvinceId
         };
-        districtService.getListAsync(model).then(res => {
-            const { data, success, message } = res;
-            if (success) {
-                // notify success
-            } else {
-                // notify failed
-            }
-        })
-        axios.post('https://localhost:5001/api/District/post-district/', {
-            Id: this.state.Id, Name: this.state.Name,
-            Code: this.state.Code, ProvinceId: this.state.ProvinceId
-        })
+       districtService.postAsync(model)
             .then(json => {
-                if (json.data.Status === 'Success') {
-                    console.log(json.data.Status);
-                    alert("Data not Saved");
+                if (json.success) {
+                    alert("Data Save Successfully");
                     this.props.history.push('/DistrictList')
                 }
                 else {
-                    alert('Data Save Successfully');
-                    debugger;
+                    alert('Data not saved');
                     this.props.history.push('/DistrictList')
                 }
             })

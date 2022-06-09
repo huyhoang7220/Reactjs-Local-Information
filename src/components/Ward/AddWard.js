@@ -19,18 +19,7 @@ class AddWard extends React.Component {
             Id: this.state.Id, Name: this.state.Name,
             Code: this.state.Code, DistrictId: this.state.DistrictId
         };
-        wardService.getListAsync(model).then(res => {
-            const { data, success, message } = res;
-            if (success) {
-                // notify success
-            } else {
-                // notify failed
-            }
-        })
-        axios.post('https://localhost:5001/api/Ward/post-ward/', {
-            Id: this.state.Id, Name: this.state.Name,
-            Code: this.state.Code, DistrictId: this.state.DistrictId
-        })
+        wardService.postAsync(model)
             .then(json => {
                 if (json.data.Status === 'Success') {
                     console.log(json.data.Status);

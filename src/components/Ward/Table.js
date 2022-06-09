@@ -12,7 +12,7 @@ class Table extends Component {
   delete = (id) => {
     wardService.deleteAsync(id)
       .then(json => {
-        if (json.data.Status === 'Delete') {
+        if (json.success) {
           alert('Record deleted successfully!!');
         }
       })

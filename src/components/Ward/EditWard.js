@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Col, Form, Row, FormGroup, Label, Input, Button } from 'reactstrap';
-import axios from 'axios';
 import './AddWard.css';
+import wardService from '../../services/ward/wardService';
 class Edit extends React.Component {
     constructor(props) {
         super(props)
@@ -21,7 +21,7 @@ class Edit extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('https://localhost:5001/api/Ward/update-ward' + this.props.match.params.id)
+        wardService.postAsync()
             .then(response => {
                 this.setState({
                     Id: response.data.Id,
@@ -60,14 +60,14 @@ class Edit extends React.Component {
     onSubmit(e) {
         debugger;
         e.preventDefault();
-        const obj = {
+        const model = {
             Id: this.props.match.params.id,
             Name: this.state.Name,
             Code: this.state.Code,
             DistrictId: this.state.DistrictId
 
         };
-        axios.post('https://localhost:5001/api/Ward/update-ward/', obj)
+        wardService.postUpdateAsync(model)
             .then(res => console.log(res.data));
         debugger;
         this.props.history.push('/WardList')

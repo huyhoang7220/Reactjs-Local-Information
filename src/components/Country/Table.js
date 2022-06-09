@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import countryService from '../../services/country/countryService';
 class Table extends Component {
@@ -13,7 +12,7 @@ class Table extends Component {
   delete = (id) => {
     countryService.deleteAsync(id)
       .then(json => {
-        if (json.data.Status === 'Delete') {
+        if (json.success) {
           alert('Record deleted successfully!!');
         }
       })

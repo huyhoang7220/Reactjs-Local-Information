@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import './AddProvince.css';
 import { Container, Col, Form, Row, FormGroup, Label, Input, Button } from 'reactstrap';
 import provinceService from '../../services/province/provinceService';
@@ -12,36 +11,24 @@ class AddProvince extends React.Component {
             Code: '',
             CountryId: ''
         }
+        this.AddProvince = this.AddProvince.bind(this)
     }
     AddProvince = () => {
         const model = {
             Name: this.state.Name,
             Code: this.state.Code, CountryId: this.state.CountryId
-        };
-        provinceService.getListAsync(model).then(res => {
-            const { data, success, message } = res;
-            if (success) {
-                // notify success
-            } else {
-                // notify failed
+        }; 
+        provinceService.postAsync(model)
+        .then(json => {
+            if (json.success) {
+                alert("Data Save Successfully");
+                this.props.history.push('/ProvinceList')
+            }
+            else {
+                alert('Data not Saved');
+                this.props.history.push('/ProvinceList')
             }
         })
-        axios.post('https://localhost:5001/api/Province/post-province/', {
-            Name: this.state.Name,
-            Code: this.state.Code, CountryId: this.state.CountryId
-        })
-            .then(json => {
-                if (json.data.Status === 'Success') {
-                    console.log(json.data.Status);
-                    alert("Data Save Successfully");
-                    this.props.history.push('/ProvinceList')
-                }
-                else {
-                    alert('Data not Saved');
-                    debugger;
-                    this.props.history.push('/ProvinceList')
-                }
-            })
     }
 
     handleChange = (e) => {
